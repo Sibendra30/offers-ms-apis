@@ -27,8 +27,7 @@ This is a spring boot based maven project. It contains below APIs:
 | name | M | string | Name of the product
 | description | M | string | Short Description of product
 | amount | M | double | Amount of product in GBP
-| expiryDate | O | Date | If not provided defaults to Today's 
-Date + 3 months (Time default to : 23:59:59)
+| expiryDate | O | Date | If not provided defaults to Today's Date + 3 months (Time default to : 23:59:59). expiryDate should not be back dated.
 
 **Response Body:**
 
