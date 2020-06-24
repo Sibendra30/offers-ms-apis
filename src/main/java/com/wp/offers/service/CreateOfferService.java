@@ -1,5 +1,6 @@
 package com.wp.offers.service;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -37,32 +38,25 @@ public class CreateOfferService extends BaseService{
 			throw new MissingServletRequestParameterException("Mandatory parameter missing or empty", null);
 		}
 
-		if (offerReq.getExpiryDate() !=null && offerReq.getExpiryDate().compareTo(new Date()) <= 0) {
+		if (offerReq.getExpiryDate() !=null && offerReq.getExpiryDate().compareTo(LocalDateTime.now()) <= 0) {
 			throw new ServletRequestBindingException("Invalid expiry date");
 		}
 	}
 
 	public void executeImpl() {
-		offerReq.setCreatedOn(new Date());
+		offerReq.setCreatedOn(LocalDateTime.now());
 		offerReq.setExpiryDate(
 				this.getExpiryDate(offerReq.getExpiryDate()));
 		offerRes = offerRepo.save(offerReq);
 	}
 
-	protected Date getExpiryDate(Date expiryDate) {
-		Calendar calendarObj = Calendar.getInstance();
+	protected LocalDateTime getExpiryDate(LocalDateTime expiryDate) {
+		LocalDateTime result = expiryDate;
 		if (expiryDate == null) {
-			calendarObj.setTime(new Date());
-			calendarObj.add(Calendar.MONTH, 
-					Integer.parseInt(applicationProperties.getProperty("default.expire.month")));
-		} else {
-			calendarObj.setTime(expiryDate);
-		}
-		calendarObj.set(Calendar.HOUR, 23);
-		calendarObj.set(Calendar.MINUTE, 59);
-		calendarObj.set(Calendar.MINUTE, 59);
-		calendarObj.set(Calendar.MILLISECOND, 999);
-		return calendarObj.getTime();
+			result = LocalDateTime.now();
+			result = result.plusMonths(Integer.parseInt(applicationProperties.getProperty("default.expire.month")));
+		} 
+		return result.withHour(23).withMinute(59).withSecond(59);
 	}
 
 	public Offer getResponse() {

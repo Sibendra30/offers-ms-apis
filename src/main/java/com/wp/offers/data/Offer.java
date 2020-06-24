@@ -1,6 +1,6 @@
 package com.wp.offers.data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,36 +30,33 @@ public class Offer {
 	@Column(name="DESCRIPTION")
 	private String description;
 	
-	@Column(name="EXPIRATION_DATE")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date expiryDate;
+	@Column(name="EXPIRATION_DATE",  columnDefinition = "TIMESTAMP")
+	private LocalDateTime expiryDate;
 	
 	@Column(name="AMOUNT")
 	private Double amount;
 	
-	@Column(name="EFFECTIVE_DATE")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdOn;
+	@Column(name = "EFFECTIVE_DATE", columnDefinition = "TIMESTAMP")
+	private LocalDateTime createdOn;
 	
-	@Column(name="LAST_UPDATED_DATE")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="LAST_UPDATED_DATE",  columnDefinition = "TIMESTAMP")
 	@JsonIgnore
-	private Date lastUpdatedOn;
+	private LocalDateTime lastUpdatedOn;
 	
 	@JsonInclude
 	@Transient
 	private boolean isExpired;
 	
-	public Date getCreatedOn() {
+	public LocalDateTime getCreatedOn() {
 		return createdOn;
 	}
-	public void setCreatedOn(Date creationOn) {
+	public void setCreatedOn(LocalDateTime creationOn) {
 		this.createdOn = creationOn;
 	}
-	public Date getLastUpdatedOn() {
+	public LocalDateTime getLastUpdatedOn() {
 		return lastUpdatedOn;
 	}
-	public void setLastUpdatedOn(Date lastUpdatedOn) {
+	public void setLastUpdatedOn(LocalDateTime lastUpdatedOn) {
 		this.lastUpdatedOn = lastUpdatedOn;
 	}
 	public boolean isExpired() {
@@ -92,10 +89,10 @@ public class Offer {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getExpiryDate() {
+	public LocalDateTime getExpiryDate() {
 		return expiryDate;
 	}
-	public void setExpiryDate(Date expiryDate) {
+	public void setExpiryDate(LocalDateTime expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 	@Override

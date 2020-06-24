@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -79,9 +81,8 @@ public class CreateOfferServiceTest {
 	
 	@Test
 	public void testValidate_invalidExpiryDate() throws IOException, URISyntaxException, ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Offer offer = mockUtil.getMockOffer();
-		offer.setExpiryDate(sdf.parse("2019-01-13"));
+		offer.setExpiryDate(LocalDateTime.of(2019, Month.AUGUST, 20, 23, 59, 59));
 		service.setOffer(offer);
 		Exception ex = Assertions.assertThrows(ServletRequestBindingException.class, () -> {
 			service.validate();
@@ -93,33 +94,29 @@ public class CreateOfferServiceTest {
 	@Test
 	public void testGetExpiryDate_nullInput() throws IOException, URISyntaxException, ParseException {
 		Mockito.doReturn("3").when(service.applicationProperties).getProperty("default.expire.month");
-		Calendar calObj = Calendar.getInstance();
-		calObj.setTime(new Date());
-		calObj.add(Calendar.MONTH, 3);
-		calObj.set(Calendar.HOUR, 23);
-		calObj.set(Calendar.MINUTE, 59);
-		calObj.set(Calendar.MINUTE, 59);
-		calObj.set(Calendar.MILLISECOND, 999);
+		LocalDateTime dateTimeNow = LocalDateTime.now()
+				.plusMonths(3)
+				.withHour(23)
+				.withMinute(59)
+				.withSecond(59);
 		
-		Date expiryDate = service.getExpiryDate(null);
-		
-		Assertions.assertTrue(expiryDate.getTime() == calObj.getTimeInMillis());
+		LocalDateTime expiryDate = service.getExpiryDate(null);
+		System.out.println(dateTimeNow);
+		System.out.println(expiryDate);
+		Assertions.assertTrue(expiryDate.compareTo(dateTimeNow) == 0);
 	}
 	
 	@Test
 	public void testGetExpiryDate_NonNullInput() throws IOException, URISyntaxException, ParseException {
-		Date input = new Date();
 		
-		Calendar calObj = Calendar.getInstance();
-		calObj.setTime(input);
-		calObj.set(Calendar.HOUR, 23);
-		calObj.set(Calendar.MINUTE, 59);
-		calObj.set(Calendar.MINUTE, 59);
-		calObj.set(Calendar.MILLISECOND, 999);
+		LocalDateTime localDateTimeNow = LocalDateTime.now()
+				.withHour(23)
+				.withMinute(59)
+				.withSecond(59);
 		
-		Date expiryDate = service.getExpiryDate(input);
+		LocalDateTime expiryDate = service.getExpiryDate(LocalDateTime.now());
 		
-		Assertions.assertTrue(expiryDate.getTime() == calObj.getTimeInMillis());
+		Assertions.assertTrue(expiryDate.compareTo(localDateTimeNow) == 0);
 	}
 
 	@Test
@@ -131,7 +128,7 @@ public class CreateOfferServiceTest {
 		reqBody.setCreatedOn(null);
 		reqBody.setExpiryDate(null);
 		
-		offer.setCreatedOn(new Date());
+		//offer.setCreatedOn(new Date());
 
 		Mockito.doReturn(offer).when(service.offerRepo).save(reqBody);
 		Mockito.doReturn("3").when(service.applicationProperties).getProperty("default.expire.month");
@@ -143,7 +140,7 @@ public class CreateOfferServiceTest {
 		Assertions.assertNotNull(offer);
 		Assertions.assertNotNull(offer.getId());
 		Assertions.assertNotNull(service.getOfferReq());
-		Assertions.assertNotNull(service.getOfferReq().getCreatedOn());
+		//Assertions.assertNotNull(service.getOfferReq().getCreatedOn());
 		Assertions.assertNotNull(service.getOfferReq().getExpiryDate());
 	}
 }

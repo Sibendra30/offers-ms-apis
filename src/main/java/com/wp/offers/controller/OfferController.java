@@ -47,7 +47,7 @@ public class OfferController {
 		createOfferService.setOffer(requestBody);
 		createOfferService.execute();
 		Offer responseBody = createOfferService.getResponse();
-		return new ResponseEntity<Offer>(responseBody, HttpStatus.OK);
+		return new ResponseEntity<Offer>(responseBody, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value="/{offerId}/cancel", method=RequestMethod.DELETE)

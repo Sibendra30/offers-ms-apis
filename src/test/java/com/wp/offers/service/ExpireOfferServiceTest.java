@@ -2,8 +2,7 @@ package com.wp.offers.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -35,8 +34,8 @@ public class ExpireOfferServiceTest {
 		Optional<Offer> optionalResult = Optional.of(inputOffer);
 		
 		Offer expiredOffer = inputOffer.clone();
-		expiredOffer.setExpiryDate(new Date());
-		expiredOffer.setLastUpdatedOn(new Date());
+		expiredOffer.setExpiryDate(LocalDateTime.now());
+		expiredOffer.setLastUpdatedOn(LocalDateTime.now());
 		
 		Mockito
 			.doReturn(expiredOffer)
@@ -74,15 +73,11 @@ public class ExpireOfferServiceTest {
 		Assertions.assertNotNull(ex.getMessage());
 	}
 	
-	private boolean checkIdOnlyDateEq(Date date1, Date date2) {
-		Calendar cal1 = Calendar.getInstance();
-		cal1.setTime(date1);
-		Calendar cal2 = Calendar.getInstance();
-		cal2.setTime(date2);
+	private boolean checkIdOnlyDateEq(LocalDateTime date1, LocalDateTime date2) {
 		
-		return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
-				&& cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)
-				&& cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
+		return date1.getYear() == date1.getYear()
+				&& date1.getMonthValue() == date2.getMonthValue()
+				&& date1.getDayOfMonth() == date2.getDayOfMonth();
 		
 	}
 }

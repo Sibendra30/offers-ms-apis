@@ -1,5 +1,6 @@
 package com.wp.offers.service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 
@@ -29,8 +30,8 @@ public class ExpireOfferService extends BaseService{
 		Optional<Offer> optionalOffer = offerRepo.findById(offerId);
 		if(optionalOffer.isPresent()) {
 			Offer offer = optionalOffer.get();
-			offer.setExpiryDate(new Date());
-			offer.setLastUpdatedOn(new Date());
+			offer.setExpiryDate(LocalDateTime.now());
+			offer.setLastUpdatedOn(LocalDateTime.now());
 			response = offerRepo.save(offer);
 			response.setExpired(util.checkIfOfferExpired(offer.getExpiryDate()));
 		} else {

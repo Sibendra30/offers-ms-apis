@@ -6,9 +6,9 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import com.google.gson.reflect.TypeToken;
@@ -19,28 +19,37 @@ import com.wp.offers.data.Offer;
 public class MockResponseUtil {
 
 	public Offer getMockOffer() throws IOException, URISyntaxException {
-		ClassLoader loader = ClassLoader.getSystemClassLoader();
-
-		String json = Files.lines(Paths.get(loader.getResource("offer.json").toURI()))
-		                   .parallel()
-		                   .collect(Collectors.joining());
-		Gson gson = new Gson();
-		return gson.fromJson(json, Offer.class);
+		Offer offer = new Offer();
+		offer.setId(1l);
+		offer.setName("Redmi Note8 Pro");
+		offer.setDescription("Smart phone");
+		offer.setAmount(220.50);
+		offer.setCreatedOn(LocalDateTime.now());
+		offer.setExpiryDate(LocalDateTime.now().plusMonths(3));
+		offer.setExpired(Boolean.FALSE);
+		return offer;
 	}
 	
 	public List<Offer> getMockOfferList() throws IOException, URISyntaxException {
-		ClassLoader loader = ClassLoader.getSystemClassLoader();
-
-		String json = Files.lines(Paths.get(loader.getResource("offers.json").toURI()))
-		                   .parallel()
-		                   .collect(Collectors.joining());
-		Gson gson = new Gson();
-		Type offerListType = new TypeToken<ArrayList<Offer>>(){}.getType();
-		return gson.fromJson(json, offerListType);
+		List<Offer> offerList = new ArrayList<>();
+		Offer offer = new Offer();
+		offer.setId(1l);
+		offer.setName("Redmi Note8 Pro");
+		offer.setDescription("Smart phone");
+		offer.setAmount(220.50);
+		offer.setCreatedOn(LocalDateTime.now());
+		offer.setExpiryDate(LocalDateTime.now().plusMonths(3));
+		offer.setExpired(Boolean.FALSE);
+		
+		offerList.add(offer);
+		
+		offer = offer.clone();
+		offer.setName("Flying Disc");
+		offer.setDescription("12cm diameter flying disc");
+		offer.setAmount(2.50);
+		
+		offerList.add(offer);
+		return offerList;
 	}
 	
-	public Date stringToDate(String input, String format) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		return sdf.parse(input);
-	}
 }

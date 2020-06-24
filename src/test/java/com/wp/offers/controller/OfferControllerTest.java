@@ -1,8 +1,7 @@
 package com.wp.offers.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -36,14 +35,15 @@ public class OfferControllerTest {
 		Mockito.doReturn(offer).when(restController.createOfferService).getResponse();
 		Mockito.doNothing().when(restController.createOfferService).execute();
 		
+		
 		Offer requestBody = new Offer();
 		requestBody.setName("Product1");
 		requestBody.setDescription("Product description");
 		requestBody.setAmount(20.50);
-		requestBody.setExpiryDate(mockUtil.stringToDate("2020-12-31 23:59:59", "yyyy-MM-dd hh:mm:ss"));
-		requestBody.setCreatedOn(new Date());
+		requestBody.setExpiryDate(LocalDateTime.of(2020, Month.AUGUST, 20, 23, 59, 59));
+		requestBody.setCreatedOn(LocalDateTime.now());
 		ResponseEntity<Offer> response = restController.createOffer(requestBody);
-		Assertions.assertTrue(response.getStatusCode() == HttpStatus.OK);
+		Assertions.assertTrue(response.getStatusCode() == HttpStatus.CREATED);
 		Assertions.assertNotNull(response.getBody());
 		Assertions.assertNotNull(response.getBody().getId());
 	}
@@ -56,7 +56,7 @@ public class OfferControllerTest {
 		ResponseEntity<List<Offer>> response = restController.getOffers(null);
 		Assertions.assertTrue(response.getStatusCode() == HttpStatus.OK);
 		Assertions.assertNotNull(response.getBody());
-		Assertions.assertNotNull(response.getBody().size() > 0);
+		Assertions.assertNotNull(response.getBody().size() == 2);
 	}
 	
 	@Test
