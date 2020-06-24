@@ -7,7 +7,7 @@ info:
     email: spsingh23021991@gmail.com
   version: 0.0.1-oas3
 servers:
-- url: https://localhost:8080
+- url: https://localhost:8091
 paths:
   /offers/create:
     post:
@@ -39,7 +39,7 @@ paths:
       tags:
       - Offering Services
       description: |
-        This service expires a list of offers.
+        This service marks an offer expired in system.
       operationId: CancelOffer
       parameters: 
       - name: offerId
@@ -66,7 +66,7 @@ paths:
       tags:
       - Offering Services
       description: |
-        This service fetch all the offers as per filter input filter criteria".
+        This service fetch all the offers. Also a specific offer can be filtered with offerId in query parameter".
       operationId: getOffers
       parameters: 
       - name: offerId
