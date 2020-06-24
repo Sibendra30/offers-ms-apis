@@ -6,6 +6,7 @@
 This is a spring boot based maven project. It contains below APIs:
 
 1. ***GET /offers***  - This API fetches all the available offers.
+
 **Response Body:**
 	
 | Attribute | M/O | Data Type | Remarks |
@@ -18,6 +19,7 @@ This is a spring boot based maven project. It contains below APIs:
 | expired | M | boolean | If offer is expired
 
 2. ***POST offers/create*** - This API create a new offer.
+
 **Request Body -** 
 
 | Attribute | M/O |  Data Type | Remarks
@@ -40,6 +42,7 @@ Date + 3 months (Time default to : 23:59:59)
 | expired | M | boolean | If offer is expired
 
 3. ***DELETE /offers/{offerId}/cancel -*** This API expire the offer instantly .
+
 **Response Body:**
 	
 | Attribute | M/O | Data Type | Remarks |
