@@ -17,6 +17,7 @@ This is a spring boot based maven project. It contains below APIs:
 | expiryDate | M | Date | Expiry date of offer
 | createdOn | M | Date | Offer creation timestamp
 | expired | M | boolean | If offer is expired
+
 Sample:
 `[{"id":1,"name":"D-Link Router","description":"512 GHz Router","expiryDate":"2020-06-24T21:07:16.767","amount":256.5,"createdOn":"2020-06-24T21:06:33.311","expired":true},{"id":2,"name":"Redmi Note8 Pro","description":"Smart phone","expiryDate":"2020-09-24T23:59:59.449","amount":220.0,"createdOn":"2020-06-24T21:07:03.449","expired":false}]`
 
@@ -31,6 +32,7 @@ Sample:
 | amount | M | double | Amount of product in GBP
 | expiryDate | O | Date | If not provided defaults to Today's Date + 3 months (Time default to : 23:59:59). expiryDate should not be back dated.
 
+
 Sample:
 `{"name": "Redmi Note8 Pro","description": "Smart phone","expiryDate": "2020-06-24T21:04:39.55","amount": 220.0}`
 
@@ -44,6 +46,7 @@ Sample:
 | expiryDate | M | Date | Expiry date of offer
 | createdOn | M | Date | Offer creation timestamp
 | expired | M | boolean | If offer is expired
+
 
 Sample: 
 `{"id":2,"name":"Redmi Note8 Pro","description":"Smart phone","expiryDate":"2020-09-24T23:59:59.449","amount":220.0,"createdOn":"2020-06-24T21:07:03.449","expired":false}`
@@ -60,6 +63,7 @@ Sample:
 | expiryDate | M | Date | Expiry date of offer
 | createdOn | M | Date | Offer creation timestamp
 | expired | M | boolean | If offer is expired
+
 
 Sample:
 `{"id":1,"name":"D-Link Router","description":"512 GHz Router","expiryDate":"2020-06-24T21:07:16.767","amount":256.5,"createdOn":"2020-06-24T21:06:33.311","expired":true}`
