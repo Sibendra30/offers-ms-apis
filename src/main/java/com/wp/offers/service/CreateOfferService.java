@@ -11,8 +11,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
 
-import com.wp.offers.OfferRepository;
 import com.wp.offers.data.Offer;
+import com.wp.offers.repository.OfferRepository;
 
 @Service
 @Scope("prototype")
@@ -27,9 +27,6 @@ public class CreateOfferService extends BaseService{
 	private Offer offerReq;
 	private Offer offerRes;
 
-	public void setOffer(Offer offer) {
-		this.offerReq = offer;
-	}
 
 	@Override
 	protected void validate() throws ServletRequestBindingException {
@@ -87,4 +84,9 @@ public class CreateOfferService extends BaseService{
 	public void setOfferRes(Offer offerRes) {
 		this.offerRes = offerRes;
 	}
+	
+	public void setOffer(Offer offer) {
+		this.offerReq = offer;
+	}
+
 }

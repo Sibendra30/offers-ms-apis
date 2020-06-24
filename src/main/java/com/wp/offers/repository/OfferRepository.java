@@ -1,4 +1,4 @@
-package com.wp.offers;
+package com.wp.offers.repository;
 
 import org.springframework.data.repository.CrudRepository;
 

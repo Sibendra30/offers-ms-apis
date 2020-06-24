@@ -16,8 +16,8 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
 
 import com.wp.offers.MockResponseUtil;
-import com.wp.offers.OfferRepository;
 import com.wp.offers.data.Offer;
+import com.wp.offers.repository.OfferRepository;
 
 public class CreateOfferServiceTest {
 

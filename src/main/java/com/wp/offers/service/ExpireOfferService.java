@@ -6,12 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.ServletRequestBindingException;
-import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
-import com.wp.offers.OfferRepository;
 import com.wp.offers.data.Offer;
+import com.wp.offers.repository.OfferRepository;
 import com.wp.offers.util.OffersUtil;
 
 @Service
@@ -19,21 +16,13 @@ import com.wp.offers.util.OffersUtil;
 public class ExpireOfferService extends BaseService{
 	
 	@Autowired
-	private OfferRepository offerRepo;
+	protected OfferRepository offerRepo;
 	
 	@Autowired
-	private OffersUtil util;
+	protected OffersUtil util;
 	
 	private long offerId;
 	private Offer response;
-
-	public void setOfferId(Long offerId) {
-		this.offerId = offerId;
-	}
-	
-	public Offer getResponse() {
-		return response;
-	}
 
 	@Override
 	protected void executeImpl() {
@@ -48,5 +37,13 @@ public class ExpireOfferService extends BaseService{
 			throw new IllegalStateException("OfferId: "+ offerId + " is not valid");
 		}
 		
+	}
+	
+	public void setOfferId(Long offerId) {
+		this.offerId = offerId;
+	}
+	
+	public Offer getResponse() {
+		return response;
 	}
 }

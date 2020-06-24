@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.wp.offers.OfferRepository;
 import com.wp.offers.data.Offer;
+import com.wp.offers.repository.OfferRepository;
 import com.wp.offers.util.OffersUtil;
 
 @Service
@@ -35,13 +35,11 @@ public class GetOffersService extends BaseService{
 	
 	protected Offer fetchOfferById() {
 		Optional<Offer> optionalResult = offerRepo.findById(offerId);
-		System.out.println("1---" + optionalResult);
 		if(optionalResult.isPresent()) {
 			Offer offer = optionalResult.get();
 			offer.setExpired(util.checkIfOfferExpired(offer.getExpiryDate()));
 			return offer;
 		}
-		System.out.println("2---" );
 		throw new IllegalStateException("Offer not found with OfferId: " + offerId);
 	}
 	

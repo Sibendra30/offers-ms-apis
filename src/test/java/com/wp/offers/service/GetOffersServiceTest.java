@@ -2,6 +2,7 @@ package com.wp.offers.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -10,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.wp.offers.MockResponseUtil;
-import com.wp.offers.OfferRepository;
 import com.wp.offers.data.Offer;
+import com.wp.offers.repository.OfferRepository;
 import com.wp.offers.util.OffersUtil;
 
 public class GetOffersServiceTest {
@@ -53,6 +54,43 @@ public class GetOffersServiceTest {
 		});
 		
 		Assertions.assertNotNull(ex.getMessage());
+	}
+	
+	@Test
+	public void testFetchAllOffer() throws IOException, URISyntaxException {
+		Iterable<Offer> expectedOfferIterables = mockUtil.getMockOfferList();
+		
+		List<Offer> list = (List<Offer>) expectedOfferIterables;
+		
+		Mockito
+		.doReturn(expectedOfferIterables)
+		.when(getOffersService.offerRepo).findAll();
+		
+		List<Offer> offers = getOffersService.fetchAllOffers();
+		
+		Assertions.assertEquals(list, offers);
+	}
+	
+	@Test
+	public void testExecuteImpl_fetchAll() throws Exception {
+		getOffersService = Mockito.spy(GetOffersService.class);
+		List<Offer> expectedOfferList = mockUtil.getMockOfferList();
+		Mockito.doReturn(expectedOfferList).when(getOffersService).fetchAllOffers();
+		getOffersService.executeImpl();
+		Assertions.assertEquals(expectedOfferList.size(), getOffersService.getResponse().size());
+		Assertions.assertEquals(expectedOfferList, getOffersService.getResponse());
+	}
+	
+	
+	@Test
+	public void testExecuteImpl_fetchById() throws Exception {
+		getOffersService = Mockito.spy(GetOffersService.class);
+		Offer expectedOffer = mockUtil.getMockOffer();
+		Mockito.doReturn(expectedOffer).when(getOffersService).fetchOfferById();
+		getOffersService.setOfferId(1l);
+		getOffersService.executeImpl();
+		Assertions.assertEquals(1, getOffersService.getResponse().size());
+		Assertions.assertEquals(expectedOffer, getOffersService.getResponse().get(0));
 	}
 	
 }

@@ -30,11 +30,6 @@ public class OfferControllerTest {
 		restController.expireOffersService = Mockito.mock(ExpireOfferService.class);
 	}
 	
-	private Date stringToDate(String input) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		return sdf.parse(input);
-	}
-	
 	@Test
 	public void testCreateOffer_success() throws Exception {
 		Offer offer = mockUtil.getMockOffer();
@@ -45,7 +40,7 @@ public class OfferControllerTest {
 		requestBody.setName("Product1");
 		requestBody.setDescription("Product description");
 		requestBody.setAmount(20.50);
-		requestBody.setExpiryDate(this.stringToDate("2020-12-31 23:59:59"));
+		requestBody.setExpiryDate(mockUtil.stringToDate("2020-12-31 23:59:59", "yyyy-MM-dd hh:mm:ss"));
 		requestBody.setCreatedOn(new Date());
 		ResponseEntity<Offer> response = restController.createOffer(requestBody);
 		Assertions.assertTrue(response.getStatusCode() == HttpStatus.OK);
