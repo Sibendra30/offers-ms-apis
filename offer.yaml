@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  title: Offer APIs
+  description: |
+    Below are the APIs supporting create, view and cancel offer on demand APIs. All the below APIs doesn't have any authorization.
+  contact:
+    email: spsingh23021991@gmail.com
+  version: 0.0.1-oas3
+servers:
+- url: https://localhost:8080
+paths:
+  /offers/create:
+    post:
+      tags:
+      - Offering Services
+      description: |
+        This service add a new offer in offering repository..
+      operationId: createOffer
+      requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offer'
+      responses:
+        201:
+          description: OK, Operation successfull
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offer'
+        400:
+          description: "Some of the input parameter missing or validation failure of inputs"
+        500:
+          description: |
+            "Internal Server Error - The server failed in handling the
+              client request."
+  /offers/{offerId}/cancel:
+    delete:
+      tags:
+      - Offering Services
+      description: |
+        This service expires a list of offers.
+      operationId: CancelOffer
+      parameters: 
+      - name: offerId
+        in: path
+        required: true
+        description: "Id of offer to be cancelled"
+        schema:
+          type: number
+      responses:
+        200:
+          description: OK, Operation successfull
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offer'
+        400:
+          description: "Some of the input parameter missing or validation failure of inputs"
+        500:
+          description: |
+            "Internal Server Error - The server failed in handling the
+              client request."              
+  /offers:
+    get:
+      tags:
+      - Offering Services
+      description: |
+        This service fetch all the offers as per filter input filter criteria".
+      operationId: getOffers
+      parameters: 
+      - name: offerId
+        in: query
+        required: false
+        description: "Offer Id of a specific offer"
+        schema:
+          type: number
+          format: int64
+      responses:
+        200:
+          description: OK, Operation successfull
+          headers:
+            X-TOTAL-RESULT-COUNT:
+              description: "Contains the count of total number of offers in system"
+              schema:
+                type: number
+                format: int64
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Offer'
+        400:
+          description: "Some of the input parameter missing or validation failure of inputs"
+        500:
+          description: |
+            "Internal Server Error - The server failed in handling the
+              client request."
+  
+components:
+  schemas:
+    Offer:
+      type: object
+      properties:
+        id:
+          type: number
+          format: int64
+          description: "System generated ID of offer"
+        name:
+          type: string
+          description: "Short name of offer"
+        description:
+          type: string
+          description: "offer description"
+        expireDate:
+          type: string
+          format: date-time
+          description: "expiry date-time of offer. If not provided while creating offer default set to current date-time + 3 months"
+        createdOn:
+          type: string
+          format: date-time
+          description: "When offer was created"
+        expired:
+          type: boolean
+          description: "Whether offer is expired"
+          default: false
+        amount: 
+          type: number
+          format: double
+          description: "Product price in GBP"
+          
+   
