@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS TB_OFFER;
+  
+CREATE TABLE TB_OFFER (
+  id INT AUTO_INCREMENT  PRIMARY KEY,
+  name VARCHAR(30) NOT NULL,
+  description VARCHAR(100) NOT NULL,
+  amount DOUBLE NOT NULL,
+  effective_date TIMESTAMP NOT NULL,
+  last_updated_date TIMESTAMP,
+  expiration_date TIMESTAMP
+);
