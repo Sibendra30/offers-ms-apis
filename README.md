@@ -8,7 +8,7 @@ This is a spring boot based maven project. It contains below APIs:
 1. ***GET /offers***  - This API fetches all the available offers.
 
 **Response Body:**
-	
+
 | Attribute | M/O | Data Type | Remarks |
 |--|--|--|--|
 | name | M | string | name of the product
@@ -54,7 +54,7 @@ Sample:
 3. ***DELETE /offers/{offerId}/cancel -*** This API expire the offer instantly .
 
 **Response Body:**
-	
+
 | Attribute | M/O | Data Type | Remarks |
 |--|--|--|--|
 | name | M | string | name of the product
@@ -73,16 +73,16 @@ go to /offers-ms-apis
 run ***mvn clean install***
 
 **Start Application**
- 1. Go to /offers-ms-apis 
- 2. Run ***mvnw spring-boot:run*** (windows machine)
- 3. Access APIs on http://localhost:8091/ via REST Client e.g. Postman
- 
- 
+1. Go to /offers-ms-apis 
+2. Run ***mvnw spring-boot:run*** (windows machine)
+3. Access APIs on http://localhost:8091/ via REST Client e.g. Postman
+
+
 ### Dependencies/Prerequisites required to run the application:
- 1.  Java 1.8+ should be installed.
- 2.  Maven must be installed.
- 3.  Add execution permission to start-up script file(if required).
- 4. Corporate proxy should be taken care of
- 5. TB_OFFER is created during tomcat server start-up. This is non-persistent database.
+1.  Java 1.8+ should be installed.
+2.  Maven must be installed.
+3.  Add execution permission to start-up script file(if required).
+4. Corporate proxy should be taken care of
+5. TB_OFFER is created during tomcat server start-up. This is non-persistent database.
 
 
