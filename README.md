@@ -83,6 +83,6 @@ run ***mvn clean install***
  2.  Maven must be installed.
  3.  Add execution permission to start-up script file(if required).
  4. Corporate proxy should be taken care of
- 5. TB_OFFER is created when during tomcat server start-up. This is non-persistent database.
+ 5. TB_OFFER is created during tomcat server start-up. This is non-persistent database.
 
 
