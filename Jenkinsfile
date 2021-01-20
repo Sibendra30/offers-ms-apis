@@ -6,7 +6,7 @@ node {
         stage('Check Maven Version') {
                 sh 'mvn --version'
         }
-	stage('Checkout) {
+	stage('Checkout') {
 		checkout scm
 	}
 	stage('Clean Project') {
