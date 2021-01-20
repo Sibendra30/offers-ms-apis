@@ -1,7 +1,10 @@
+@Library('shared-lib-pipeline')
+
 node {
     
 	stage('Welcome Script') {
                 sh 'echo Welcome to Jenkins pipeline'
+		sayHello 'Sibendra Singh from Kolkata...'
         }
         stage('Check Maven Version') {
                 sh 'mvn --version'
