@@ -10,15 +10,15 @@ node {
                 sh 'mvn --version'
         }
 	stage('Checkout') {
-		checkout scm
+		sayHello.checkoutSCM()
 	}
 	stage('Clean Project') {
                 sayHello.clean()
         }
 	stage('Build Project') {
-                sh 'mvn install'
+               sayHello.build()
         }
 	stage('Unit Test') {
-                sh 'mvn test'
+                sayHello.test()
         }
 }
