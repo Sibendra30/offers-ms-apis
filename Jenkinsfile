@@ -1,6 +1,5 @@
 node {
     
-    stages {
         stage('Check Maven Version') {
             steps {
                 sh 'mvn --version'
@@ -21,5 +20,4 @@ node {
                 sh 'mvn test'
             }
         }
-    }
 }
