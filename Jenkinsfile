@@ -13,7 +13,7 @@ node {
 		checkout scm
 	}
 	stage('Clean Project') {
-                sayHello.clean
+                sayHello.clean()
         }
 	stage('Build Project') {
                 sh 'mvn install'
