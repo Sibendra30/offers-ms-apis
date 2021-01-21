@@ -1,10 +1,12 @@
 @Library('shared-lib-pipeline')_
+import com.example.SharedLib
 
 node {
     
 	stage('Welcome Script') {
                 sh 'echo Welcome to Jenkins pipeline.'
-		var1 = SharedLib.addNumber(20)
+		def lib = new SharedLib()
+		def var1 = lib.addNumber()
 		sh 'echo ${var1}'
         }
         stage('Check Maven Version') {
