@@ -3,7 +3,7 @@
 node {
     
 	stage('Welcome Script') {
-                sh 'echo Welcome to Jenkins pipeline'
+                sh 'echo Welcome to Jenkins pipeline...'
         }
         stage('Check Maven Version') {
                 sh 'mvn --version'
