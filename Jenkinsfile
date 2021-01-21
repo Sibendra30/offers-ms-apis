@@ -4,7 +4,8 @@ node {
     
 	stage('Welcome Script') {
                 sh 'echo Welcome to Jenkins pipeline.'
-		sh 'echo sayHello.addNumber(20)'
+		var1 = SharedLib.addNumber(20)
+		sh 'echo ${var1}'
         }
         stage('Check Maven Version') {
                 sh 'mvn --version'
