@@ -1,5 +1,5 @@
 
-@Library('pipeline-library','shared-lib-pipeline')_
+@Library(['pipeline-library','shared-lib-pipeline'])_
 import com.example.SharedLib
 
 node {
