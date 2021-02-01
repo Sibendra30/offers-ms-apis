@@ -5,8 +5,8 @@ node {
     
 	stage('Welcome Script') {
                 sh 'echo Welcome to Jenkins pipeline...'
-		def lib = new SharedLib()
-		def var1 = lib.addNumber()
+		def var1 = -1
+		def var1 = SharedLib.addNumber()
 		sh 'echo ${var1}'
         }
         stage('Check Maven Version') {
